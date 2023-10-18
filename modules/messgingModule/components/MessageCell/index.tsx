@@ -6,7 +6,7 @@ import { CircularProgress } from '@mui/material';
 import { MessageBodyType } from '../../types/types'
 import moment from 'moment';
 import { useMessenger } from '../../hooks';
-import { useMessengerContext } from 'messages/modules/context';
+import { useMessengerContext } from 'messages/modules/messgingModule/context';
 
 function MessageCell(props: MessageBodyType) {
   const { text, source, timestamp, id } = props;

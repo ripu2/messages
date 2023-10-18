@@ -7,7 +7,7 @@ import { messengerActions, useMessenger } from '../../hooks'
 import { MessageBodyType } from '../../types/types'
 import MessageCell from '../MessageCell'
 import MessageInputBox from '../MessageInputBox'
-import { useMessengerContext } from 'messages/modules/context'
+import { useMessengerContext } from 'messages/modules/messgingModule/context'
 
 function MessengerComponent() {
   const { state, dispatch } = useMessengerContext()
@@ -24,8 +24,11 @@ function MessengerComponent() {
   }, [])
 
   const renderMessages = useMemo(() => {
-    if (loadingMessages || !state.messages.length) return <LoaderContainer>
+    if (loadingMessages) return <LoaderContainer>
       <CircularProgress />
+    </LoaderContainer>
+    else if (!loadingMessages && !state.messages.length) return <LoaderContainer>
+      <Typography>No Messages</Typography>
     </LoaderContainer>
     else {
       return state.currentPageMessages.map((messageData: MessageBodyType, index: number) => {
@@ -61,9 +64,6 @@ function MessengerComponent() {
       <SubHeaderTypography>
         Type something in the box below, then hit "Post"
       </SubHeaderTypography>
-      <button onClick={scrollToBottom} style={{ marginLeft: '8px' }}>
-        Scroll to bottom
-      </button>
       <MessageInputBox scrollToBottom={scrollToBottom} />
       <MessageListContainer>
         {

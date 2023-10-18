@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import { DefaultContext } from "messages/utils/types";
-import { State } from "../messgingModule/types/types";
+import { State } from "../types/types";
 
 export const initialState: State = {
   messages: [],

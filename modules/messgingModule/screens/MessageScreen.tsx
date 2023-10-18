@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useMessenger, useMessengerReducer } from '../hooks'
 
 import MessengerComponent from '../components/MessengerComponent'
-import { MessengerContext } from 'messages/modules/context';
+import { MessengerContext } from 'messages/modules/messgingModule/context';
 import { ParentContainer } from './styles';
 
 function MessageScreen() {

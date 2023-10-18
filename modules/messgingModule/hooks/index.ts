@@ -1,7 +1,7 @@
 import { Dispatch, useReducer, useState } from "react";
 import { MessageBodyType, State } from "../types/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { initialState, useMessengerContext } from "messages/modules/context";
+import { initialState, useMessengerContext } from "messages/modules/messgingModule/context";
 
 import { apiService } from "messages/services/API/apiServices";
 
@@ -108,6 +108,19 @@ export function useMessenger(dispatch: Dispatch<any> | null) {
     }
   };
 
+  const deleteAllMessage = async () => {
+    try {
+      if (dispatch) dispatch(messengerActions.setMessages([]));
+      for(let i = 0; i < state.messages.length; i++) {
+        await apiService.delete(String(state.messages[i].id));
+      }
+    } catch (error) {
+      console.log("err", error);
+    } finally {
+      setDeletingMessage(false);
+    }
+  };
+
   const sortMessages = (messages: MessageBodyType[]) => {
     const data = messages || []
     const sortedMessages = data?.slice().sort(
@@ -129,6 +142,7 @@ export function useMessenger(dispatch: Dispatch<any> | null) {
     deleteMessage,
     loadingMessages,
     deletingMessages,
-    sortMessages
+    sortMessages,
+    deleteAllMessage
   };
 }
